@@ -151,8 +151,9 @@ nav{
 }
 .bolt-l{transform:scaleX(-1) rotate(-8deg)}
 .bolt-r{transform:scaleX(-1) rotate(8deg)}
-.hero-namebox{display:flex;flex-direction:column;align-items:center}
+.hero-namebox{display:flex;flex-direction:column;align-items:center;font-weight:normal;margin:0}
 .hero-name{
+  display:block;
   font-family:Rye,Georgia,serif;
   font-size:clamp(2.6rem,10vw,6.4rem);
   line-height:.95;
@@ -160,6 +161,7 @@ nav{
   text-shadow:0 4px 0 var(--red-deep), 0 8px 24px rgba(0,0,0,.6);
 }
 .hero-band{
+  display:block;
   font-family:Rye,Georgia,serif;
   font-size:clamp(1.3rem,5.2vw,3rem);
   letter-spacing:.05em;
