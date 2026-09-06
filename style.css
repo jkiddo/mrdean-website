@@ -1000,8 +1000,8 @@ footer{text-align:center;padding:2.2rem 1.25rem 2.6rem}
 .fade.in{opacity:1}
 
 /* ---------- cursor ---------- */
-body{cursor:url("assets/cursor-pick.png") 2 2, auto}
-a,button,.crew-card,.quote,input,select,textarea,.song-check{cursor:url("assets/cursor-flame.png") 2 2, pointer}
+body{cursor:default}
+a,button,.crew-card,.quote,input,select,textarea,.song-check{cursor:pointer}
 
 #firemic{
   position:fixed;left:0;top:0;z-index:999;
