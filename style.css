@@ -999,37 +999,6 @@ footer{text-align:center;padding:2.2rem 1.25rem 2.6rem}
 .fade{opacity:0;transition:opacity .8s ease}
 .fade.in{opacity:1}
 
-/* ---------- cursor ---------- */
-body{cursor:default}
-a,button,.crew-card,.quote,input,select,textarea,.song-check{cursor:pointer}
-
-#firemic{
-  position:fixed;left:0;top:0;z-index:999;
-  width:44px;height:48px;
-  display:none;pointer-events:none;
-  transform:translate(-64px,-64px);
-  filter:drop-shadow(0 0 6px rgba(232,120,44,.5));
-  will-change:transform;
-}
-#firemic.on{display:block}
-#firemic svg{width:100%;height:100%;display:block}
-#firemic .fl{transform-origin:22px 24px}
-#firemic .fl1{animation:flick .9s ease-in-out infinite alternate}
-#firemic .fl2{animation:flick 1.3s ease-in-out .2s infinite alternate}
-#firemic .fl3{animation:flick 1.1s ease-in-out .4s infinite alternate-reverse}
-#firemic .em{animation:rise 1.4s linear infinite}
-#firemic .em2{animation-delay:.7s}
-#firemic.press{filter:brightness(1.3) drop-shadow(0 0 9px rgba(240,197,65,.7))}
-@keyframes flick{
-  from{transform:scale(.92) rotate(-2deg)}
-  to{transform:scale(1.05) rotate(2.5deg)}
-}
-@keyframes rise{
-  from{opacity:.9;transform:translate(0,0)}
-  to{opacity:0;transform:translate(-3px,-11px)}
-}
-html.js-cursor, html.js-cursor *{cursor:none!important}
-
 /* ---------- responsive media queries ---------- */
 @media (max-width:860px){
   .nav-toggle{display:flex}
