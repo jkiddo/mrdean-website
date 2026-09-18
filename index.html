@@ -50,11 +50,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rye&family=Yellowtail&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Rye&family=Yellowtail&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="stage.css">
 <script src="script.js" defer></script>
+<script src="stage.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Spring til indhold</a>
 
 <nav>
   <a class="nav-logo" href="#top">
@@ -78,61 +81,31 @@
   </div>
 </nav>
 
-<header id="top" class="hero">
-  <div class="rays" aria-hidden="true"></div>
-  <div class="hero-inner">
-    
-    <div class="hero-badges">
-      <span class="hero-kicker">★ Aarhus · Est. 2014 ★</span>
-      <span class="hero-rating-badge"><span>★★★★★</span> 5.0 på Eventzonen &amp; 123Festmusik</span>
-    </div>
-
-    <div class="hero-title">
-      <svg class="bolt bolt-l" viewBox="0 0 64 96" aria-hidden="true"><polygon points="54,4 12,52 32,52 8,92 58,42 36,42 58,4"/></svg>
-      <h1 class="hero-namebox">
-        <span class="hero-name">Mr. Dean</span>
-        <span class="hero-band"><span class="amp">&amp;</span> The Rebels</span>
-        <span class="hero-script">Genuine Rockabilly</span>
-      </h1>
-      <svg class="bolt bolt-r" viewBox="0 0 64 96" aria-hidden="true"><polygon points="54,4 12,52 32,52 8,92 58,42 36,42 58,4"/></svg>
-    </div>
-
-    <p class="hero-tag">Autentisk rockabilly &amp; rock'n'roll — <em>fra da farfar var dreng og dansegulvet glødede.</em></p>
-
-    <!-- Band Hero Showcase Photo -->
-    <div class="hero-showcase">
-      <div class="hero-card">
-        <img src="assets/band-hero.jpg" alt="Mr. Dean & The Rebels — rockabilly band Aarhus" class="hero-img" width="849" height="636">
-        <div class="hero-card-tag">★ 100% Autentisk Live Garanti ★</div>
+<header id="top" class="hero stage">
+  <canvas id="stageCanvas" aria-hidden="true"></canvas>
+  <div class="stage-topline"><span>AARHUS, DANMARK / EST. 2014</span></div>
+  <div class="stage-layout">
+    <div class="stage-copy">
+      <p class="stage-eyebrow">Fem mand. Én lyd. Fuld gas.</p>
+      <h1><span class="stage-dean">MR. DEAN</span><span class="stage-rebels"><i>&amp;</i> THE REBELS</span></h1>
+      <p class="stage-script">Genuine Rockabilly</p>
+      <p class="stage-intro">Lyden af 1956.<br>En aften, I aldrig glemmer.</p>
+      <div class="hero-actions">
+        <a href="#musik" class="btn-hero-primary"><span aria-hidden="true">▶</span> Hør &amp; se bandet</a>
+        <a href="#booking" class="btn-hero-secondary">Book jeres aften <span aria-hidden="true">↗</span></a>
       </div>
     </div>
-
-    <div class="pills">
-      <span>50'er-hits</span><span>Elvis · Berry · Cochran · Perkins · Cash · Holly</span><span>Fuldt knald på dansegulvet</span>
-    </div>
-
-    <div class="hero-actions">
-      <a href="#booking" class="btn-hero-primary">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
-        <span>Få et uforpligtende tilbud</span>
-      </a>
-      <a href="#musik" class="btn-hero-secondary">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><polygon points="6,3 20,12 6,21"/></svg>
-        <span>Se video &amp; hør musik</span>
-      </a>
-    </div>
-
+    <figure class="stage-photo">
+      <div class="stage-photo-frame"><img src="assets/band-hero.jpg" alt="Mr. Dean &amp; The Rebels samlet med guitarer, piano, kontrabas og trommer" width="849" height="636" fetchpriority="high"></div>
+      <figcaption><span>MR. DEAN &amp; THE REBELS</span><span>100% LIVE / 100% ROCK'N'ROLL</span></figcaption>
+      <a class="stage-play" href="#musik" aria-label="Se bandets livevideo"><span aria-hidden="true">↗</span><small>OPLEV<br>LYDEN</small></a>
+    </figure>
   </div>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>★ GENUINE ROCKABILLY ★ ROCK'N'ROLL ★ LIVE FRA AARHUS ★ FÅ DEN STIVBENEDE ONKEL PÅ DANSEGULVET ★ BRYLLUP · FØDSELSDAG · BYFEST · FIRMAFEST </span>
-      <span>★ GENUINE ROCKABILLY ★ ROCK'N'ROLL ★ LIVE FRA AARHUS ★ FÅ DEN STIVBENEDE ONKEL PÅ DANSEGULVET ★ BRYLLUP · FØDSELSDAG · BYFEST · FIRMAFEST </span>
-    </div>
-  </div>
+  <div class="stage-bottom"><span class="stage-hint">Bevæg markøren. Sæt lyden i bevægelse.</span><a href="#historie">Mød The Rebels <span aria-hidden="true">↓</span></a><span class="stage-rating">★★★★★ <small>5.0 på Eventzonen &amp; 123Festmusik</small></span></div>
+  <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>ROCKABILLY &nbsp;✦&nbsp; RHYTHM &amp; REBELS &nbsp;✦&nbsp; LIVE FRA AARHUS &nbsp;✦&nbsp; ELVIS · BERRY · CASH · COCHRAN &nbsp;✦&nbsp; </span><span>ROCKABILLY &nbsp;✦&nbsp; RHYTHM &amp; REBELS &nbsp;✦&nbsp; LIVE FRA AARHUS &nbsp;✦&nbsp; ELVIS · BERRY · CASH · COCHRAN &nbsp;✦&nbsp; </span></div></div>
 </header>
 
-<main>
+<main id="main">
 
 <div class="flame-band" aria-hidden="true"></div>
 
@@ -240,18 +213,20 @@
   <h2 class="section-title"><span>The Set</span><em>Sættet &amp; Sangønsker</em></h2>
   <p class="section-sub rv">Udødelige hits fra rock'n'rollens guldalder blandet med glemte perler. Vælg jeres personlige favoritter til jeres fest herunder — de føres direkte over i bookingforespørgslen!</p>
 
-  <div class="set-filter-bar rv">
+  <div class="set-workspace">
+<div class="set-browser">
+<div class="set-filter-bar rv">
     <span class="set-filter-label">Filter:</span>
-    <button class="set-filter active" data-filter="all">Alle numre</button>
-    <button class="set-filter" data-filter="hits">Største 50'er-hits</button>
-    <button class="set-filter" data-filter="dance">Danse-raketter</button>
-    <button class="set-filter" data-filter="gems">Glemte perler &amp; Cash</button>
+    <button class="set-filter active" aria-pressed="true" data-filter="all">Alle numre</button>
+    <button class="set-filter" aria-pressed="false" data-filter="hits">Største 50'er-hits</button>
+    <button class="set-filter" aria-pressed="false" data-filter="dance">Danse-raketter</button>
+    <button class="set-filter" aria-pressed="false" data-filter="gems">Glemte perler &amp; Cash</button>
   </div>
 
   <ul class="set-list rv" id="songList">
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Blue Suede Shoes">
+        <input type="checkbox" value="Blue Suede Shoes" aria-label="Vælg Blue Suede Shoes">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -261,7 +236,7 @@
     </li>
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Johnny B. Goode">
+        <input type="checkbox" value="Johnny B. Goode" aria-label="Vælg Johnny B. Goode">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -271,7 +246,7 @@
     </li>
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Summertime Blues">
+        <input type="checkbox" value="Summertime Blues" aria-label="Vælg Summertime Blues">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -281,7 +256,7 @@
     </li>
     <li data-cat="hits">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="That'll Be the Day">
+        <input type="checkbox" value="That'll Be the Day" aria-label="Vælg That'll Be the Day">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -291,7 +266,7 @@
     </li>
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Great Balls of Fire">
+        <input type="checkbox" value="Great Balls of Fire" aria-label="Vælg Great Balls of Fire">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -301,7 +276,7 @@
     </li>
     <li data-cat="gems">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Big River">
+        <input type="checkbox" value="Big River" aria-label="Vælg Big River">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -311,7 +286,7 @@
     </li>
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Hound Dog">
+        <input type="checkbox" value="Hound Dog" aria-label="Vælg Hound Dog">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -321,7 +296,7 @@
     </li>
     <li data-cat="dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Maybellene">
+        <input type="checkbox" value="Maybellene" aria-label="Vælg Maybellene">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -331,7 +306,7 @@
     </li>
     <li data-cat="gems">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Folsom Prison Blues">
+        <input type="checkbox" value="Folsom Prison Blues" aria-label="Vælg Folsom Prison Blues">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -341,7 +316,7 @@
     </li>
     <li data-cat="hits dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Jailhouse Rock">
+        <input type="checkbox" value="Jailhouse Rock" aria-label="Vælg Jailhouse Rock">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -351,7 +326,7 @@
     </li>
     <li data-cat="gems">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Rock House Sang">
+        <input type="checkbox" value="Rock House Sang" aria-label="Vælg Rock House Sang">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -361,7 +336,7 @@
     </li>
     <li data-cat="gems dance">
       <label class="song-check" title="Vælg til ønskeliste">
-        <input type="checkbox" value="Mystery Train">
+        <input type="checkbox" value="Mystery Train" aria-label="Vælg Mystery Train">
         <span class="check-box"></span>
       </label>
       <div class="song-info">
@@ -370,6 +345,18 @@
       </div>
     </li>
   </ul>
+
+  </div>
+  <aside class="set-mix" aria-labelledby="mixHeading">
+    <p class="mix-kicker">JERES AFTEN / JERES FAVORITTER</p>
+    <h3 id="mixHeading">Sæt jeres præg<br>på sættet.</h3>
+    <div class="mix-total"><strong id="mixCount">00</strong><span>numre på<br>ønskelisten</span></div>
+    <div class="mix-slots" id="mixSlots" aria-hidden="true"></div>
+    <div class="mix-breakdown" id="mixBreakdown"></div>
+    <p class="mix-caption">Et nummer kan høre til flere kategorier.</p>
+    <p id="mixStatus" class="mix-status" role="status" aria-live="polite">Vælg jeres favoritter fra listen.</p>
+  </aside>
+  </div>
 
   <!-- Interactive Wishlist Banner -->
   <div class="wishlist-action rv" id="wishlistNotice" style="display:none;">
@@ -405,7 +392,7 @@
     <div class="retro-tv">
       <div class="tv-antenna" aria-hidden="true"></div>
       <div class="tv-screen" id="tvScreen">
-        <canvas id="tvStaticCanvas" class="tv-static-canvas"></canvas>
+        <canvas id="tvStaticCanvas" class="tv-static-canvas" aria-hidden="true"></canvas>
         <div class="tv-scanlines" aria-hidden="true"></div>
         <iframe id="tvIframe" title="Mr. Dean &amp; The Rebels live video" src="https://www.youtube-nocookie.com/embed/GHBGn1WVwRw?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
@@ -419,10 +406,10 @@
         </div>
 
         <div class="tv-presets" id="tvPresets" aria-label="Kanalvælger">
-          <button type="button" class="tv-btn active" data-ch="0" title="Kanal 1: Live Promo (UsCarCamp)">CH 1</button>
-          <button type="button" class="tv-btn" data-ch="1" title="Kanal 2: Live Koncert (Rønde)">CH 2</button>
-          <button type="button" class="tv-btn" data-ch="2" title="Kanal 3: Autentisk Rockabilly">CH 3</button>
-          <button type="button" class="tv-btn" data-ch="3" title="Kanal 4: Live fra Scenen">CH 4</button>
+          <button type="button" class="tv-btn active" aria-pressed="true" data-ch="0" title="Kanal 1: Live Promo (UsCarCamp)">CH 1</button>
+          <button type="button" class="tv-btn" aria-pressed="false" data-ch="1" title="Kanal 2: Live Koncert (Rønde)">CH 2</button>
+          <button type="button" class="tv-btn" aria-pressed="false" data-ch="2" title="Kanal 3: Autentisk Rockabilly">CH 3</button>
+          <button type="button" class="tv-btn" aria-pressed="false" data-ch="3" title="Kanal 4: Live fra Scenen">CH 4</button>
         </div>
 
         <div class="tv-badge">★ REBEL-VISION 1956 ★</div>
@@ -440,8 +427,13 @@
         <div class="jukebox-title">★ REBELS JUKEBOX ★</div>
         <div class="jukebox-sub">Bandets originale optagelser</div>
       </div>
+      <div class="juke-rack" id="jukeRack">
+        <div class="juke-tube" aria-hidden="true"></div>
+        <div class="juke-strip" id="jukeStrip" role="group" aria-label="Vælg et nummer i jukeboxen"></div>
+        <div class="juke-rail"><span>◀ Vælg nummer</span><b id="jukeRailCode">A1 – B4</b><span id="jukeNow" role="status" aria-live="polite">Tryk på en plade ▶</span></div>
+      </div>
       <div class="jukebox-player">
-        <iframe title="Mr. Dean &amp; the Rebels på SoundCloud" loading="lazy" height="340" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F303179189&show_artwork=true"></iframe>
+        <iframe id="jukePlayer" title="Mr. Dean &amp; the Rebels på SoundCloud" loading="lazy" height="340" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?visual=true&url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F303179189&show_artwork=true"></iframe>
       </div>
       <div class="jukebox-footer">
         <a href="https://soundcloud.com/dennis-hansen-2106399" target="_blank" rel="noopener">Hele SoundCloud-profilen →</a>
@@ -612,35 +604,6 @@
   </div>
 </div>
 
-<!-- Flaming Microphone Cursor Element -->
-<div id="firemic" aria-hidden="true">
-  <svg viewBox="0 0 44 48">
-    <defs>
-      <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0" stop-color="#f4ecd9"/>
-        <stop offset=".4" stop-color="#d3c8ad"/>
-        <stop offset=".55" stop-color="#776c57"/>
-        <stop offset="1" stop-color="#b8ac90"/>
-      </linearGradient>
-    </defs>
-    <g transform="rotate(-24 22 24)">
-      <path class="fl fl1" fill="#c81d25" opacity=".8" d="M5 12 Q10 0 22 2 Q36 4 39 18 Q41 32 28 37 Q12 42 5 31 Q1 21 5 12 Z"/>
-      <path class="fl fl2" fill="#e8782c" opacity=".85" d="M9 9 Q22 -3 34 8 Q42 16 36 28 Q28 40 14 35 Q4 28 6 18 Q7 12 9 9 Z"/>
-      <g stroke="#2e2a24">
-        <rect x="13" y="4" width="18" height="24" rx="9" fill="url(#chrome)"/>
-        <path fill="none" stroke-width="1" opacity=".8" d="M14.5 8.5h15M14.5 12h15M14.5 15.5h15M14.5 19h15M14.5 22.5h15M18.5 5v22M22 5v22M25.5 5v22"/>
-        <rect x="15" y="27" width="14" height="2.6" fill="#3a352e" stroke="none"/>
-        <rect x="20" y="29.5" width="4" height="7" fill="#8a7f68" stroke="none"/>
-        <circle cx="22" cy="39" r="5.5" fill="url(#chrome)"/>
-      </g>
-      <path class="fl fl3" fill="#f0c541" opacity=".9" d="M17 2 q2 3 0 6 q5 0 7 -4 q-1 6 -6 6 q-4 -1 -1 -8 Z"/>
-      <path class="fl fl3" fill="#f0c541" opacity=".9" d="M32 13 q3 1 6 -1 q-2 5 -7 5 q2 -2 1 -4 Z"/>
-      <path class="fl fl3" fill="#f0c541" opacity=".9" d="M11 31 q4 4 9 2 q-3 4 -8 3 q-3 -2 -1 -5 Z"/>
-      <circle class="em" cx="7" cy="7" r="1.3" fill="#f0c541"/>
-      <circle class="em em2" cx="38" cy="40" r="1.1" fill="#e8782c"/>
-    </g>
-  </svg>
-</div>
 
 </body>
 </html>

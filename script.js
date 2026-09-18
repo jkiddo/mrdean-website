@@ -44,6 +44,15 @@
       navToggle.setAttribute('aria-expanded', String(isOpen));
     });
 
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
+      }
+    });
+
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         navLinks.classList.remove('open');
@@ -59,8 +68,9 @@
   if (filterBtns.length > 0 && songItems.length > 0) {
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        filterBtns.forEach(function (b) { b.classList.remove('active'); });
+        filterBtns.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         var filter = btn.getAttribute('data-filter');
         songItems.forEach(function (li) {
           if (filter === 'all') {
@@ -147,10 +157,11 @@
 
       if (formFeedback) {
         formFeedback.style.display = 'block';
-        formFeedback.innerHTML = '<strong>Tak for din forespørgsel, ' + name + '!</strong><br>' +
+        formFeedback.innerHTML = '<strong></strong><br>' +
           'Din mailklient åbnes nu med de udfyldte oplysninger. ' +
           'Hvis den ikke åbner automatisk, kan du skrive direkte til <a href="mailto:mrdean.booking@gmail.com">mrdean.booking@gmail.com</a> ' +
           'eller ringe til vores booking-agent på <a href="tel:+4523657560">tlf. 23 65 75 60</a>.';
+        formFeedback.querySelector('strong').textContent = 'Din mail er klar, ' + name + '!';
       }
     });
   }
@@ -235,7 +246,7 @@
     // Trigger white/black CRT static noise for a brief moment (350ms)
     stopStaticNoise();
     clearTimeout(staticTimer);
-    if (tvScreen) {
+    if (tvScreen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !document.body.classList.contains('motion-paused')) {
       tvScreen.classList.add('switching');
       renderStaticNoise();
       staticTimer = setTimeout(function () {
@@ -262,6 +273,7 @@
     // Update preset button active highlight
     tvPresetBtns.forEach(function (b, idx) {
       b.classList.toggle('active', idx === currentCh);
+      b.setAttribute('aria-pressed', String(idx === currentCh));
     });
   }
 
@@ -277,21 +289,5 @@
       switchChannel(chIdx);
     });
   });
-
-  // 8. Flaming Microphone Custom Cursor (Touch & Motion Protected)
-  if (window.matchMedia && matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
-    var m = document.getElementById('firemic');
-    if (m) {
-      document.documentElement.classList.add('js-cursor');
-      m.classList.add('on');
-      document.addEventListener('mousemove', function (e) {
-        m.style.transform = 'translate(' + (e.clientX - 3) + 'px,' + (e.clientY - 2) + 'px)';
-      }, { passive: true });
-      document.addEventListener('mousedown', function () { m.classList.add('press'); });
-      document.addEventListener('mouseup', function () { m.classList.remove('press'); });
-      document.documentElement.addEventListener('mouseleave', function () { m.classList.remove('on'); });
-      document.documentElement.addEventListener('mouseenter', function () { m.classList.add('on'); });
-    }
-  }
 
 })();
