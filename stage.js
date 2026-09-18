@@ -2,7 +2,6 @@
   'use strict';
   var canvas = document.getElementById('stageCanvas');
   var stage = document.querySelector('.stage');
-  var toggle = document.getElementById('motionToggle');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var finePointer = window.matchMedia('(pointer: fine)');
   var paused = reducedMotion.matches;
@@ -49,10 +48,6 @@
     frameId = 0;
     lastTime = 0;
     document.body.classList.toggle('motion-paused', paused);
-    if (toggle) {
-      toggle.setAttribute('aria-pressed', String(paused));
-      toggle.textContent = paused ? 'Start bevægelse ▷' : 'Pause bevægelse Ⅱ';
-    }
     if (canAnimate()) frameId = requestAnimationFrame(frame);
     else draw();
   }
@@ -82,7 +77,6 @@
     }).observe(stage);
     document.addEventListener('visibilitychange', syncAnimation);
   }
-  if (toggle) toggle.addEventListener('click', function () { paused = !paused; syncAnimation(); });
   reducedMotion.addEventListener('change', function (event) { paused = event.matches; syncAnimation(); });
   syncAnimation();
 })();
@@ -139,4 +133,121 @@
   }
   update();
   window.addEventListener('pageshow', update);
+})();
+
+(function () {
+  'use strict';
+  // Jukebox rack: one tilted title card per SoundCloud track. Clicking a card skips the embedded player to it.
+  var strip = document.getElementById('jukeStrip');
+  var player = document.getElementById('jukePlayer');
+  if (!strip || !player) return;
+  var fallbackTitles = ['Checkbook', 'Tennessee Whiskey - bonus track', 'Baby Lets Play House', 'Hey Baby',
+    "Honey Don't", 'Flint City', 'Bring it on home', 'Carol', 'Folsom prison blues', 'Summertime blues', 'Matchbox'];
+  var photos = ['assets/band-live.jpg', 'assets/band-main.jpg', 'assets/band-hero.jpg'];
+  var crops = ['22% 30%', '50% 35%', '78% 30%', '35% 60%', '65% 45%'];
+  var rail = document.getElementById('jukeRailCode');
+  var now = document.getElementById('jukeNow');
+  var perSide = 6;
+  var cards = [];
+  var widget = null, ready = false, pending = -1;
+
+  function code(i) { return String.fromCharCode(65 + Math.floor(i / perSide)) + (i % perSide + 1); }
+
+  function buildCards(titles) {
+    strip.textContent = '';
+    cards = titles.map(function (title, i) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'juke-card';
+      card.style.zIndex = String(titles.length - i);
+      card.setAttribute('aria-label', 'Afspil ' + title);
+      var img = document.createElement('img');
+      img.src = photos[i % photos.length];
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.style.objectPosition = crops[i % crops.length];
+      var caption = document.createElement('span');
+      caption.className = 'juke-cap';
+      var label = document.createElement('b');
+      label.textContent = code(i);
+      caption.append(label, document.createTextNode(title));
+      card.append(img, caption);
+      card.addEventListener('click', function () { select(i); });
+      strip.appendChild(card);
+      return card;
+    });
+    if (rail && titles.length) rail.textContent = code(0) + ' – ' + code(titles.length - 1);
+  }
+
+  function setArtwork(sounds) {
+    sounds.forEach(function (sound, i) {
+      var url = sound && sound.artwork_url;
+      if (url && cards[i]) cards[i].querySelector('img').src = url.replace('-large', '-t300x300');
+    });
+  }
+
+  function markPlaying(index, title) {
+    cards.forEach(function (card, i) { card.classList.toggle('is-playing', i === index); });
+    if (now && title) { now.textContent = '▶ ' + code(index) + ' · ' + title; now.classList.add('is-live'); }
+    if (index >= 0 && cards[index] && !document.body.classList.contains('motion-paused')) {
+      cards[index].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    }
+  }
+
+  function select(i) {
+    if (!ready) { pending = i; return; }
+    widget.skip(i);
+    widget.play();
+  }
+
+  function syncCurrent() {
+    widget.getCurrentSoundIndex(function (index) {
+      widget.getCurrentSound(function (sound) { markPlaying(index, sound && sound.title); });
+    });
+  }
+
+  function connect() {
+    if (!window.SC || !window.SC.Widget) return;
+    widget = window.SC.Widget(player);
+    var Events = window.SC.Widget.Events;
+    widget.bind(Events.READY, function () {
+      ready = true;
+      widget.getSounds(function (sounds) {
+        var titles = sounds.map(function (sound, i) { return (sound && sound.title) || fallbackTitles[i] || 'Nummer ' + (i + 1); });
+        if (titles.length) { buildCards(titles); setArtwork(sounds); }
+        if (pending >= 0) { var p = pending; pending = -1; select(p); }
+      });
+    });
+    widget.bind(Events.PLAY, syncCurrent);
+    widget.bind(Events.PAUSE, function () {
+      if (now) now.classList.remove('is-live');
+    });
+  }
+
+  buildCards(fallbackTitles);
+  var api = document.createElement('script');
+  api.src = 'https://w.soundcloud.com/player/api.js';
+  api.async = true;
+  api.onload = connect;
+  document.head.appendChild(api);
+
+  // Pointer near either edge scrolls the rack, as in the original Jukebox-CSS demo.
+  var finePointer = window.matchMedia('(pointer: fine)');
+  var speed = 0, frameId = 0;
+  function step() {
+    frameId = 0;
+    if (!speed || document.body.classList.contains('motion-paused')) return;
+    strip.scrollLeft += speed;
+    frameId = requestAnimationFrame(step);
+  }
+  strip.addEventListener('pointermove', function (event) {
+    if (!finePointer.matches) return;
+    var rect = strip.getBoundingClientRect();
+    var x = (event.clientX - rect.left) / rect.width;
+    var edge = .3, max = 6;
+    speed = x < edge ? -((edge - x) / edge) * max : x > 1 - edge ? ((x - (1 - edge)) / edge) * max : 0;
+    if (speed && !frameId) frameId = requestAnimationFrame(step);
+  }, { passive: true });
+  strip.addEventListener('pointerleave', function () { speed = 0; });
 })();
