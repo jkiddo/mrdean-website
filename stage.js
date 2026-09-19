@@ -33,14 +33,19 @@
     }
   }
   function canAnimate() { return context && !paused && visible && !document.hidden; }
+  var waitBefore = 0;
   function frame(time) {
     frameId = 0;
-    if (!canAnimate()) return;
+    if (!canAnimate()) { waitBefore = 0; return; }
     var delta = lastTime ? Math.min(time - lastTime, 50) : 16;
     lastTime = time;
-    phase += delta * .0003;
-    pointer.strength += (pointer.target - pointer.strength) * .06;
-    draw();
+    waitBefore += delta;
+    if (waitBefore >= 33) {
+      phase += waitBefore * .0003;
+      pointer.strength += (pointer.target - pointer.strength) * Math.min(.35, waitBefore * .004);
+      waitBefore = 0;
+      draw();
+    }
     frameId = requestAnimationFrame(frame);
   }
   function syncAnimation() {

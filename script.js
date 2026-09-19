@@ -290,4 +290,20 @@
     });
   });
 
+  // 8. Flaming Microphone Custom Cursor (Touch & Motion Protected)
+  if (window.matchMedia && matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    var m = document.getElementById('firemic');
+    if (m) {
+      document.documentElement.classList.add('js-cursor');
+      m.classList.add('on');
+      document.addEventListener('mousemove', function (e) {
+        m.style.transform = 'translate(' + (e.clientX - 3) + 'px,' + (e.clientY - 2) + 'px)';
+      }, { passive: true });
+      document.addEventListener('mousedown', function () { m.classList.add('press'); });
+      document.addEventListener('mouseup', function () { m.classList.remove('press'); });
+      document.documentElement.addEventListener('mouseleave', function () { m.classList.remove('on'); });
+      document.documentElement.addEventListener('mouseenter', function () { m.classList.add('on'); });
+    }
+  }
+
 })();
